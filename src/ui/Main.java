@@ -61,7 +61,7 @@ public class Main {
             // checks if there is no waitlist. Try phys 117 sem 2 as a test
             int waitlistssize = waitlists.size();
             if (waitlistssize == 0) {
-                System.out.println("There is no waitlist for " + courseName + "" + courseNum + " in semester " + semester);
+                System.out.println("There is no waitlist for " + courseName + " " + courseNum + " in semester " + semester);
             } else {
                 for (String link : waitlists) {
                     Waitlist.getWaitlist(link);
