@@ -30,21 +30,5 @@ public class Main {
         semester = input.nextLine();
 
         String courseLink = "https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=" + course + "&course=" + courseNum;
-
-        try {
-            doc = Jsoup.connect(courseLink).get();
-
-            content = doc.getElementsByClass("'table").select("tr");
-
-            String title = doc.select("h4").text();
-
-            System.out.println(title);
-
-            for (Element element : content) {
-                System.out.println(element.text());
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred");
-        }
     }
 }
