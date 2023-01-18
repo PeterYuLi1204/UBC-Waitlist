@@ -22,6 +22,7 @@ public class Main {
     public static String semester;
     public static String searchTerm;
     public static ArrayList<String> waitlists = new ArrayList<>();
+    public static Integer waitlistsSize;
 
     public static void main(String[] args) {
         // Get course name from user
@@ -43,20 +44,29 @@ public class Main {
         String courseLink = "https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=" + courseName + "&course=" + courseNum;
 
         try {
+
             doc = Jsoup.connect(courseLink).get();
 
             sections = doc.getElementsByTag("tr");
 
             for (Element section : sections) {
                 if (section.text().contains(searchTerm)) {
+
                     String link = LINK_PREFIX + section.select("a[href]").attr("href");
                     waitlists.add(link);
+
                 }
             }
 
-            for (String link : waitlists) {
-                Waitlist.getWaitlist(link);
-                System.out.println();
+            // checks if there is no waitlist. Try phys 117 sem 2 as a test
+            int waitlistssize = waitlists.size();
+            if (waitlistssize == 0) {
+                System.out.println("There is no waitlist for " + courseName + "" + courseNum + " in semester " + semester);
+            } else {
+                for (String link : waitlists) {
+                    Waitlist.getWaitlist(link);
+                    System.out.println();
+                }
             }
 
         } catch (Exception e) {
