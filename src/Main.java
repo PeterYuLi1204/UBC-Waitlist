@@ -7,21 +7,20 @@ public class Main {
 
     public static Document doc;
     public static Elements content;
-    public static String text;
 
     public static void main(String[] args) {
-        String url = "https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=PHYS&course=131&section=20W";
+        String url = "https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=DSCI&course=100&section=WL4";
 
         try {
             doc = Jsoup.connect(url).get();
 
-            content = doc.select("table.'table");
+            content = doc.getElementsByTag("tr");
 
-            String text = content.text();
+            for (Element element : content) {
+                System.out.println(element.text());
+            }
         } catch (Exception e) {
             System.out.println("An error occurred");
         }
-
-        System.out.println(text);
     }
 }
