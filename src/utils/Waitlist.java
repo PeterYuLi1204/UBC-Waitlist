@@ -1,20 +1,24 @@
+package utils;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class Main {
+public class Waitlist {
 
     public static Document doc;
     public static Elements content;
 
-    public static void main(String[] args) {
-        String url = "https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-section&dept=DSCI&course=100&section=WL4";
-
+    public static void getWaitlist(String link) {
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(link).get();
 
-            content = doc.getElementsByTag("tr");
+            content = doc.getElementsByClass("'table").select("tr");
+
+            String title = doc.select("h4").text();
+
+            System.out.println(title);
 
             for (Element element : content) {
                 System.out.println(element.text());
